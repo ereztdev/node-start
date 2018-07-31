@@ -8,15 +8,17 @@ const cors = require('cors');
 
 app.use(cors({origin: 'http://localhost:8080'}));
 
-var server = app.listen(3000, function () {
+var server = app.listen(port, function () {
     console.log("app running on port.", server.address().port);
+    app.get('/test', (req,res) =>{
+        res.json({ message: 'hooray! welcome to our api!' });
+    });
 
     app.get('/api/coins_rate', (req, res) => {
 
         let coinsFrom = req.query.coinsFrom;
         let coinsTo = req.query.coinsTo;
         axios.get('https://min-api.cryptocompare.com/data/pricemultifull?fsyms=' + coinsFrom + '&tsyms=' + coinsTo)
-
             .then(response => {
                 let rates = response.data;
                 res.json(rates);
