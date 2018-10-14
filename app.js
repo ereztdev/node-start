@@ -38,5 +38,15 @@ var server = app.listen(port, function () {
                 console.log(error)
             })
     });
+
+    app.get('/api/stuff', (req, res) => {
+        let a = req.query.a;
+        let b = req.query.b;
+        async function addAB( a , b){
+            res.json(parseFloat(a)+parseFloat(b));
+
+        }
+        addAB(a,b);
+    });
 });
 
